@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                dir('DevOps-Project-18') {
+                dir('DevOps-Project-18/spring-boot-app') {
                     sh 'mvn clean package'
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir('DevOps-Project-18') {
+                dir('DevOps-Project-18/spring-boot-app') {
                     sh 'mvn test'
                 }
             }
@@ -25,14 +25,14 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploy step goes here'
+                echo 'Add your deploy steps here'
             }
         }
     }
 
     post {
         always {
-            junit 'DevOps-Project-18/target/surefire-reports/*.xml'
+            junit 'DevOps-Project-18/spring-boot-app/target/surefire-reports/*.xml'
         }
     }
 }
