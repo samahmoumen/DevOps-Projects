@@ -25,18 +25,22 @@ pipeline {
             }
         }
 
-        stage('Unit Tests') {
-            steps {
-                dir('DevOps-Project-18/spring-boot-app') {
-                    sh 'mvn test'
-                }
-            }
-            post {
-                always {
-                    junit 'DevOps-Project-18/spring-boot-app/target/surefire-reports/*.xml'
-                }
-            }
+stage('Unit Tests') {
+    steps {
+        sh 'pwd'
+        sh 'ls -l DevOps-Project-18/spring-boot-app'
+
+        dir('DevOps-Project-18/spring-boot-app') {
+            sh 'mvn test'
         }
+    }
+    post {
+        always {
+            junit 'DevOps-Project-18/spring-boot-app/target/surefire-reports/*.xml'
+        }
+    }
+}
+
 
         stage('SonarQube Analysis') {
             environment {
