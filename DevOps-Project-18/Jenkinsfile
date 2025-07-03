@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3'    // Configure Maven 3 in Jenkins tools
+        jdk 'JDK 11'       // Configure JDK 11 in Jenkins tools
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/samahmoumen/DevOps-Projects.git', branch: 'master'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('DevOps-Project-18') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('DevOps-Project-18') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Add your deploy steps here'
+            }
+        }
+    }
+
+    post {
+        always {
+            junit 'DevOps-Project-18/target/surefire-reports/*.xml'
+        }
+    }
+}
